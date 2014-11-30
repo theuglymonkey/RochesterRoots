@@ -1,8 +1,6 @@
 #include "appMain.h"
-#include "BluetoothHandler.h"
 #include "HumidityAndTempSensors.h"
 #include "NodeControl.h"
-BluetoothHandler bl;
 NodeControl Node;
 HumidityAndTempSensors humTempSense;
 

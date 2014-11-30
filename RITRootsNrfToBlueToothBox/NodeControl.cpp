@@ -47,8 +47,18 @@ void NodeControl::NodeLookUp(uint32_t nodeNum, uint64_t &writingPipe)
 
 void NodeControl::DecodeNodeData(String data, uint32_t &nodeNum)
 {
-  nodeNum = 0;
-  SA1tx.request = true;
+
+  int secondVal;
+
+  for (int i = 0; i < data.length(); i++) {
+    if (data.substring(i, i+1) == ",")
+    {
+      nodeNum = data.substring(0, i).toInt();
+      SA1tx.request = data.substring(i+1).toInt();
+      break;
+    }
+  }
+  //SA1tx.request = true;
 }
 
 void NodeControl::WriteDataToNode(uint64_t writingPipe, sensorData data)

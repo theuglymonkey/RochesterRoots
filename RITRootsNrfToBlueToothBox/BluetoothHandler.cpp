@@ -33,21 +33,17 @@ void BluetoothHandler::EncodeData(sensorData rawData)
 
 void BluetoothHandler::DecodeData(String Data)
 {
-  
+
 }
 
 void BluetoothHandler::RequestBluetoothData()
 {
+  rxData = "";
   while (bluetooth.available())
   {
     delay(3);
     char c = bluetooth.read();
     rxData += c;
-  }
-  if (rxData.length() > 0)
-  {
-    Serial.println(bluetooth.println(rxData));
-    rxData = "";
   }
 }
 
