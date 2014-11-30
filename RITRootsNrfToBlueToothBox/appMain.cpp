@@ -24,9 +24,9 @@ void AppMain::AppMainLoop(void)
     String blData = "test";
     for(;;)
     {
-      bl.RequestBluetoothData();
+      //bl.RequestBluetoothData();
       nodeNet.RequestSensorDataFromNode(bl.GetRxData());
-      bl.SetTxData(blData); // set data to transmit
-      bl.TransmitBluetoothData();
+      //bl.SetTxData(blData); // set data to transmit
+      //bl.TransmitBluetoothData();
     }
 }

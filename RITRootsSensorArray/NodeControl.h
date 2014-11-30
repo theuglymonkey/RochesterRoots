@@ -9,7 +9,6 @@ typedef struct
   float AmbientTemp;
   float SoilTemp;
   float SoilMoisture;
-
 }sensorData;
 
 class NodeControl
@@ -17,15 +16,14 @@ class NodeControl
 private:
   uint64_t writingPipes[2];
   uint64_t readingPipes[2];
-  void NodeLookUp(uint32_t nodeNum, uint64_t &writingPipe);
-  void DecodeNodeData(String data, uint32_t &nodeNum);
+  void DecodeNodeData();
   void WriteDataToNode(uint64_t writingPipe, sensorData data);
   sensorData ReadDataFromNode();
 
 public:
     NodeControl(void);
     void Setup(void);
-    void RequestSensorDataFromNode(String nodeData);
+    void SendSensorDataFromNode(sensorData nodeData);
 
 
 };

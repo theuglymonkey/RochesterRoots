@@ -2,8 +2,13 @@
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include "HTU21D.h"
-#include <MsTimer2.h>
-#include <OneWire.h>
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+#include <RF24_config.h>
+//#include <MsTimer2.h>
+
+
 
 
 void setup(void)
