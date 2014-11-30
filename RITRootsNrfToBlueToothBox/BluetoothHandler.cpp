@@ -15,6 +15,27 @@ void BluetoothHandler::BluetoothHandler::Setup(void)
   bluetooth.begin(9600);
 }
 
+
+void BluetoothHandler::EncodeData(sensorData rawData)
+{
+  encodedData = "";
+  encodedData = "Humidity" + ','
+  + (String)rawData.Humidity + ','
+  + "AmbientTemp" + ','
+  + (String)rawData.AmbientTemp + ','
+  + "SoilTemp" + ','
+  + (String)rawData.SoilTemp + ','
+  + "SoilMoisture" + ','
+  + (String)rawData.SoilMoisture;
+
+
+}
+
+void BluetoothHandler::DecodeData(String Data)
+{
+  
+}
+
 void BluetoothHandler::RequestBluetoothData()
 {
   while (bluetooth.available())
