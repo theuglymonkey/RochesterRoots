@@ -9,15 +9,17 @@ private:
   String rxData;
   sensorData decodedData;
   String encodedData;
+  char txDataCA[100];
 public:
     BluetoothHandler(void);
     void Setup(void);
     void EncodeData(sensorData rawData);
     void DecodeData(String Data);
-    void RequestBluetoothData();
-    void TransmitBluetoothData();
+    bool RequestBluetoothData();
+    void TransmitBluetoothData(sensorData data);
     void SetTxData(String blTxData);
     String GetRxData();
+    String GetEncodedData();
 };
 
 

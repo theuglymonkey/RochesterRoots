@@ -58,6 +58,9 @@ void NodeControl::DecodeNodeData(String data, uint32_t &nodeNum)
       break;
     }
   }
+  Serial.println(nodeNum);
+  Serial.println(SA1tx.request);
+  //nodeNum = 0;
   //SA1tx.request = true;
 }
 
@@ -81,11 +84,13 @@ sensorData NodeControl::ReadDataFromNode()
   delay(5);
   if ( radio.available() )
   {
+    Serial.println(1);
     while (!done)
     {
       // Fetch the data
       done = radio.read( &incomingData, sizeof(incomingData));
     }
+
     Serial.print(incomingData.Humidity);
     Serial.print(" ");
     Serial.print(incomingData.AmbientTemp);
@@ -95,4 +100,10 @@ sensorData NodeControl::ReadDataFromNode()
     Serial.print(incomingData.SoilMoisture);
     Serial.println(" ");
   }
+  inData = incomingData;
+}
+
+sensorData NodeControl::GetInData()
+{
+  return inData;
 }

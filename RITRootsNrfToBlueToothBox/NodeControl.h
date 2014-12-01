@@ -21,13 +21,13 @@ private:
   void DecodeNodeData(String data, uint32_t &nodeNum);
   void WriteDataToNode(uint64_t writingPipe, sensorData data);
   sensorData ReadDataFromNode();
+  sensorData inData;
 
 public:
     NodeControl(void);
     void Setup(void);
     void RequestSensorDataFromNode(String nodeData);
-
-
+    sensorData GetInData();
 };
 
 

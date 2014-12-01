@@ -1,32 +1,33 @@
 #include "BluetoothHandler.h"
 #include <SoftwareSerial.h>
-int bluetoothTx = 10;  // TX-O pin of bluetooth mate, Arduino D4,
-int bluetoothRx = 11;  // RX-I pin of bluetooth mate, Arduino D5
+int bluetoothTx = 2;  // TX-O pin of bluetooth mate, Arduino D4,
+int bluetoothRx = 3;  // RX-I pin of bluetooth mate, Arduino D5
 
 SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
 
 BluetoothHandler::BluetoothHandler(void)
 {
-
 }
 
 void BluetoothHandler::BluetoothHandler::Setup(void)
 {
-  bluetooth.begin(9600);
+  //bluetooth.begin(9600);
+  Serial1.begin(9600);
 }
 
 
 void BluetoothHandler::EncodeData(sensorData rawData)
 {
+  //encodedData = "HM," + (String)((int)rawData.Humidity);
   encodedData = "";
-  encodedData = "Humidity" + ','
-  + (String)rawData.Humidity + ','
-  + "AmbientTemp" + ','
-  + (String)rawData.AmbientTemp + ','
-  + "SoilTemp" + ','
-  + (String)rawData.SoilTemp + ','
-  + "SoilMoisture" + ','
-  + (String)rawData.SoilMoisture;
+  encodedData = "HM,"
+  + (String)((int)(rawData.Humidity)) + ','
+  + "AP,"
+  + (String)((int)(rawData.AmbientTemp)) + ','
+  + "ST,"
+  + (String)((int)(rawData.SoilTemp)) + ','
+  + "SM,"
+  + (String)((int)(rawData.SoilMoisture));
 
 
 }
@@ -36,29 +37,41 @@ void BluetoothHandler::DecodeData(String Data)
 
 }
 
-void BluetoothHandler::RequestBluetoothData()
+bool BluetoothHandler::RequestBluetoothData()
 {
+  bool returnVal = false;
   rxData = "";
-  while (bluetooth.available())
+  while (Serial1.available())
   {
     delay(3);
-    char c = bluetooth.read();
+    char c = Serial1.read();
     rxData += c;
+    returnVal = true;
   }
+  //Serial.println(rxData);
+  return returnVal;
 }
 
-void BluetoothHandler::TransmitBluetoothData()
+void BluetoothHandler::TransmitBluetoothData(sensorData data)
 {
-  bluetooth.print(txData);
+  EncodeData(data);
+  //Serial.println(encodedData);
+  Serial1.print(encodedData);
   delay(4000); //interval between sensor readings
 }
 
 void BluetoothHandler::SetTxData(String blTxData)
 {
   txData = blTxData;
+
 }
 
 String BluetoothHandler::GetRxData()
 {
   return rxData;
+}
+
+String BluetoothHandler::GetEncodedData()
+{
+  return encodedData;
 }

@@ -4,7 +4,7 @@
 
 BluetoothHandler bl;
 NodeControl nodeNet;
-
+sensorData test;
 AppMain::AppMain(void)
 {
 
@@ -21,12 +21,14 @@ void AppMain::SetupArduino(void)
 void AppMain::AppMainLoop(void)
 {
     SetupArduino();
-    String blData = "test";
+    //String blData = "test";
     for(;;)
     {
-      //bl.RequestBluetoothData();
+      while(bl.RequestBluetoothData() != true)
+      {
+      }
+
       nodeNet.RequestSensorDataFromNode(bl.GetRxData());
-      //bl.SetTxData(blData); // set data to transmit
-      //bl.TransmitBluetoothData();
+      //bl.TransmitBluetoothData(nodeNet.GetInData());
     }
 }

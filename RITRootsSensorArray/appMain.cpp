@@ -15,6 +15,7 @@ void AppMain::SetupArduino(void)
 {
   Serial.begin(9600);
   Node.Setup();
+  humTempSense.Setup();
   //bl.Setup();
 
 }
@@ -23,8 +24,7 @@ void AppMain::AppMainLoop(void)
 {
     SetupArduino();
     sensorTx.request = false;
-    sensorTx.Humidity = 4.56;
-    sensorTx.AmbientTemp = 29.2;
+
     sensorTx.SoilTemp = 15.2;
     sensorTx.SoilMoisture = 82;
     for(;;)
@@ -45,6 +45,14 @@ void AppMain::AppMainLoop(void)
         bl.SetTxData(String(humTempSense.GetHumidity())); // set data to transmit
         bl.TransmitBluetoothData();
       */
+
+
+      humTempSense.RequestAmbientTemp();
+      humTempSense.RequestHumidity();
+      sensorTx.AmbientTemp = humTempSense.GetAmbientTemp();
+      sensorTx.Humidity = humTempSense.GetHumidity();
+      Serial.println(sensorTx.AmbientTemp);
+
       Node.SendSensorDataFromNode(sensorTx);
     }
 }
