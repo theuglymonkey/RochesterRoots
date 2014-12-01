@@ -18,16 +18,13 @@ void BluetoothHandler::BluetoothHandler::Setup(void)
 
 void BluetoothHandler::EncodeData(sensorData rawData)
 {
-  //encodedData = "HM," + (String)((int)rawData.Humidity);
-  encodedData = "";
+
   encodedData = "HM,"
   + (String)((int)(rawData.Humidity)) + ','
   + "AP,"
   + (String)((int)(rawData.AmbientTemp)) + ','
   + "ST,"
-  + (String)((int)(rawData.SoilTemp)) + ','
-  + "SM,"
-  + (String)((int)(rawData.SoilMoisture));
+  + (String)((int)(rawData.SoilTemp))+ ",";
 
 
 }
@@ -40,7 +37,8 @@ void BluetoothHandler::DecodeData(String Data)
 bool BluetoothHandler::RequestBluetoothData()
 {
   bool returnVal = false;
-  rxData = "";
+  //Serial.println(rxData);
+  //rxData = "";
   while (Serial1.available())
   {
     delay(3);
@@ -48,16 +46,17 @@ bool BluetoothHandler::RequestBluetoothData()
     rxData += c;
     returnVal = true;
   }
-  //Serial.println(rxData);
+  //Serial.println("done");
   return returnVal;
 }
 
 void BluetoothHandler::TransmitBluetoothData(sensorData data)
 {
   EncodeData(data);
-  //Serial.println(encodedData);
+  Serial.println(encodedData);
   Serial1.print(encodedData);
-  delay(4000); //interval between sensor readings
+  delay(300);
+
 }
 
 void BluetoothHandler::SetTxData(String blTxData)

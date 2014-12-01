@@ -50,16 +50,27 @@ void NodeControl::DecodeNodeData(String data, uint32_t &nodeNum)
 
   int secondVal;
 
-  for (int i = 0; i < data.length(); i++) {
+/*  for (int i = 0; i < data.length(); i++)
+  {
     if (data.substring(i, i+1) == ",")
     {
       nodeNum = data.substring(0, i).toInt();
-      SA1tx.request = data.substring(i+1).toInt();
-      break;
+      //SA1tx.request = data.substring(i+1).toInt();
+      //break;
     }
-  }
-  Serial.println(nodeNum);
-  Serial.println(SA1tx.request);
+  }*/
+  nodeNum = 0;
+  if(nodeNum == 0)
+    {
+      SA1tx.request = true;
+    }
+    else
+      {
+        SA1tx.request = false;
+      }
+
+  //Serial.println(nodeNum);
+  //Serial.println(SA1tx.request);
   //nodeNum = 0;
   //SA1tx.request = true;
 }
@@ -81,7 +92,7 @@ sensorData NodeControl::ReadDataFromNode()
   volatile bool done = false;
   radio.openReadingPipe(1,readingPipes[0]);
   radio.startListening();
-  delay(5);
+  delay(300);
   if ( radio.available() )
   {
     Serial.println(1);
@@ -90,7 +101,7 @@ sensorData NodeControl::ReadDataFromNode()
       // Fetch the data
       done = radio.read( &incomingData, sizeof(incomingData));
     }
-
+/*
     Serial.print(incomingData.Humidity);
     Serial.print(" ");
     Serial.print(incomingData.AmbientTemp);
@@ -99,6 +110,7 @@ sensorData NodeControl::ReadDataFromNode()
     Serial.print(" ");
     Serial.print(incomingData.SoilMoisture);
     Serial.println(" ");
+    */
   }
   inData = incomingData;
 }

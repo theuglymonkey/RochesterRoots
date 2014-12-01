@@ -27,8 +27,9 @@ void AppMain::AppMainLoop(void)
       while(bl.RequestBluetoothData() != true)
       {
       }
-
+//bl.RequestBluetoothData();
       nodeNet.RequestSensorDataFromNode(bl.GetRxData());
-      //bl.TransmitBluetoothData(nodeNet.GetInData());
+      bl.TransmitBluetoothData(nodeNet.GetInData());
+
     }
 }
