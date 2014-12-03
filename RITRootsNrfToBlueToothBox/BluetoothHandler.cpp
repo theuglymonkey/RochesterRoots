@@ -9,7 +9,7 @@ BluetoothHandler::BluetoothHandler(void)
 {
 }
 
-void BluetoothHandler::BluetoothHandler::Setup(void)
+void BluetoothHandler::Setup(void)
 {
   //bluetooth.begin(9600);
   Serial1.begin(9600);
@@ -21,10 +21,12 @@ void BluetoothHandler::EncodeData(sensorData rawData)
 
   encodedData = "HM,"
   + (String)((int)(rawData.Humidity)) + ','
-  + "AP,"
+  + "AT,"
   + (String)((int)(rawData.AmbientTemp)) + ','
   + "ST,"
-  + (String)((int)(rawData.SoilTemp))+ ",";
+  + (String)((int)(rawData.SoilTemp))+ ","
+  + "SM,"
+  + (String)((int)(rawData.SoilMoisture));
 
 
 }
@@ -63,6 +65,11 @@ void BluetoothHandler::SetTxData(String blTxData)
 {
   txData = blTxData;
 
+}
+
+void BluetoothHandler::ClearRxData()
+{
+   rxData = "";
 }
 
 String BluetoothHandler::GetRxData()

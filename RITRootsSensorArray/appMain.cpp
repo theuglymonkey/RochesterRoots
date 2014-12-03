@@ -1,6 +1,7 @@
 #include "appMain.h"
 #include "HumidityAndTempSensors.h"
 #include "NodeControl.h"
+
 NodeControl Node;
 HumidityAndTempSensors humTempSense;
 
@@ -16,7 +17,6 @@ void AppMain::SetupArduino(void)
   Serial.begin(9600);
   Node.Setup();
   humTempSense.Setup();
-  //bl.Setup();
 
 }
 
@@ -49,6 +49,8 @@ void AppMain::AppMainLoop(void)
 
       humTempSense.RequestAmbientTemp();
       humTempSense.RequestHumidity();
+      humTempSense.RequestSoilTemp();
+      sensorTx.SoilTemp = humTempSense.GetSoilTemp();
       sensorTx.AmbientTemp = humTempSense.GetAmbientTemp();
       sensorTx.Humidity = humTempSense.GetHumidity();
       Serial.println(sensorTx.AmbientTemp);

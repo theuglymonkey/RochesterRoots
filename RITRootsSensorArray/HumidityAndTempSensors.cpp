@@ -1,13 +1,13 @@
 #include "HumidityAndTempSensors.h"
 #include <Wire.h>
 #include "HTU21D.h"
-//#include <OneWire.h>
-byte TempSensor1_DS18S20_Pin = 2; // Use this pin for OneWire talking to temp sensor
+#include <OneWire.h>
+byte TempSensor1_DS18S20_Pin = 14; // Use this pin for OneWire talking to temp sensor
 
 HTU21D HumiditySensor;
 
 //Connect wire object to temp pin
-//OneWire DS18S20(TempSensor1_DS18S20_Pin); // on digital pin 2
+OneWire DS18S20(TempSensor1_DS18S20_Pin); // on digital pin 2
 
 HumidityAndTempSensors::HumidityAndTempSensors(void)
 {
@@ -26,7 +26,7 @@ void HumidityAndTempSensors::RequestAmbientTemp()
 
 void HumidityAndTempSensors::RequestSoilTemp()
 {
-  /*
+
     //returns the temperature from one DS18S20 in DEG Celsius
 
     byte data[12];
@@ -71,7 +71,7 @@ void HumidityAndTempSensors::RequestSoilTemp()
     float TemperatureSum = tempRead / 16;
 
     soilTemp = TemperatureSum;
-    */
+
 }
 
 void HumidityAndTempSensors::RequestHumidity()

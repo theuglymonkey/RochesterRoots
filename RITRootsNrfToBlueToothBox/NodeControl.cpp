@@ -90,27 +90,22 @@ sensorData NodeControl::ReadDataFromNode()
 {
   sensorData incomingData;
   volatile bool done = false;
+  volatile bool radioAvail = false;
   radio.openReadingPipe(1,readingPipes[0]);
   radio.startListening();
-  delay(300);
-  if ( radio.available() )
+
+  while(radioAvail != true)
   {
-    Serial.println(1);
-    while (!done)
+    if ( radio.available() )/*Change this to a while loop and wait for radio avail*/
     {
-      // Fetch the data
-      done = radio.read( &incomingData, sizeof(incomingData));
+      radioAvail = true;
+      //Serial.println(1);
+      while (!done)
+      {
+        // Fetch the data
+        done = radio.read( &incomingData, sizeof(incomingData));
+      }
     }
-/*
-    Serial.print(incomingData.Humidity);
-    Serial.print(" ");
-    Serial.print(incomingData.AmbientTemp);
-    Serial.print(" ");
-    Serial.print(incomingData.SoilTemp);
-    Serial.print(" ");
-    Serial.print(incomingData.SoilMoisture);
-    Serial.println(" ");
-    */
   }
   inData = incomingData;
 }

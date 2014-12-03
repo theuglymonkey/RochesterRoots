@@ -26,10 +26,12 @@ void AppMain::AppMainLoop(void)
     {
       while(bl.RequestBluetoothData() != true)
       {
+
       }
-//bl.RequestBluetoothData();
+      Serial.println(bl.GetRxData());
       nodeNet.RequestSensorDataFromNode(bl.GetRxData());
       bl.TransmitBluetoothData(nodeNet.GetInData());
+      bl.ClearRxData();
 
     }
 }

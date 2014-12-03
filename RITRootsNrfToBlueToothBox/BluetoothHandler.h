@@ -19,6 +19,7 @@ public:
     void TransmitBluetoothData(sensorData data);
     void SetTxData(String blTxData);
     String GetRxData();
+    void ClearRxData();
     String GetEncodedData();
 };
 

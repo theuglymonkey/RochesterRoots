@@ -1,4 +1,5 @@
 #include "appMain.h"
+#include <OneWire.h>
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include "HTU21D.h"
