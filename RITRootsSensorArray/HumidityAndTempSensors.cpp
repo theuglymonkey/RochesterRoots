@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include "HTU21D.h"
 #include <OneWire.h>
-byte TempSensor1_DS18S20_Pin = 14; // Use this pin for OneWire talking to temp sensor
+byte TempSensor1_DS18S20_Pin = 6; // Use this pin for OneWire talking to temp sensor
 
 HTU21D HumiditySensor;
 

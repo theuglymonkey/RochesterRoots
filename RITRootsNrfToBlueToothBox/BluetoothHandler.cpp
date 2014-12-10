@@ -1,9 +1,9 @@
 #include "BluetoothHandler.h"
-#include <SoftwareSerial.h>
+
 int bluetoothTx = 2;  // TX-O pin of bluetooth mate, Arduino D4,
 int bluetoothRx = 3;  // RX-I pin of bluetooth mate, Arduino D5
 
-SoftwareSerial bluetooth(bluetoothTx, bluetoothRx);
+
 
 BluetoothHandler::BluetoothHandler(void)
 {

@@ -1,10 +1,11 @@
 #include "appMain.h"
 #include "HumidityAndTempSensors.h"
 #include "NodeControl.h"
+#include "MoistureSensor.h"
 
 NodeControl Node;
 HumidityAndTempSensors humTempSense;
-
+MoistureSensor moSensor;
 sensorData sensorTx;
 
 AppMain::AppMain(void)
@@ -25,35 +26,21 @@ void AppMain::AppMainLoop(void)
     SetupArduino();
     sensorTx.request = false;
 
-    sensorTx.SoilTemp = 15.2;
-    sensorTx.SoilMoisture = 82;
+    //sensorTx.SoilTemp = 15.2;
+    //sensorTx.SoilMoisture = 82;
     for(;;)
     {
-      /*
-        bl.SetTxData("SoilTemp,"); // set data to transmit
-        bl.TransmitBluetoothData();
-        bl.SetTxData(String(humTempSense.GetSoilTemp())); // set data to transmit
-        bl.TransmitBluetoothData();
-
-        bl.SetTxData("AmbTemp,"); // set data to transmit
-        bl.TransmitBluetoothData();
-        bl.SetTxData(String(humTempSense.GetAmbientTemp())); // set data to transmit
-        bl.TransmitBluetoothData();
-
-        bl.SetTxData("Humidity,"); // set data to transmit
-        bl.TransmitBluetoothData();
-        bl.SetTxData(String(humTempSense.GetHumidity())); // set data to transmit
-        bl.TransmitBluetoothData();
-      */
 
 
       humTempSense.RequestAmbientTemp();
       humTempSense.RequestHumidity();
       humTempSense.RequestSoilTemp();
+      moSensor.Read();
+      sensorTx.SoilMoisture = moSensor.getLevel();
       sensorTx.SoilTemp = humTempSense.GetSoilTemp();
       sensorTx.AmbientTemp = humTempSense.GetAmbientTemp();
       sensorTx.Humidity = humTempSense.GetHumidity();
-      Serial.println(sensorTx.AmbientTemp);
+      Serial.println(sensorTx.SoilMoisture);
 
       Node.SendSensorDataFromNode(sensorTx);
     }
