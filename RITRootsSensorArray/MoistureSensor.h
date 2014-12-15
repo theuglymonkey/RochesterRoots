@@ -12,8 +12,6 @@ public:
     void Setup();
     void Read();
     float getLevel();
-
-
 };
 
 #endif
